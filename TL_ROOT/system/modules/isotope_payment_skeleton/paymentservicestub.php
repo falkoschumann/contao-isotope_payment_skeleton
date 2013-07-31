@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Isotope Payment Skeleton Extension for Contao
@@ -34,17 +34,27 @@
  * @filesource
  */
 
-
-/**
- * Miscellaneous
- */
-$GLOBALS['TL_LANG']['MSC']['ipayment_submit_label'] = 'Bezahlen';
-
-
-/**
- * Payment
- */
-$GLOBALS['ISO_LANG']['PAY']['skeleton'] = array('Skeleton', 'Skeleton-Implementierung einer Zahlungsart für Isotope Webshop für Contao.');
-
-
-?>
+?><html>
+<head>
+<title>Payment Service Stub</title>
+</head>
+<body>
+<form action="<?php echo $_POST['accepturl']; ?>" method="post">
+  <table>
+    <tr>
+      <td><label for="cc_name">Credit Card Owner</label></td>
+      <td><input type="text" name="cc_name" value="Foo Bar"></td>
+    </tr>
+    <tr>
+      <td><label for="cc_number">Credit Card No.</label></td>
+      <td><input type="text" name="cc_number"value="1234567890"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Submit"></td>
+    </tr>
+  </table>
+  <input type="hidden" name="orderid" value="<?php echo $_POST['orderid']; ?>">
+  <input type="hidden" name="REQUEST_TOKEN" value="<?php echo $_POST['REQUEST_TOKEN']; ?>">
+</form>
+</body>
+</html>

@@ -48,12 +48,44 @@ class PaymentSkeleton extends IsotopePayment
 	public function processPayment()
 	{
 		$objOrder = new IsotopeOrder();
-		if ($objOrder->findBy('cart_id', $this->Isotope->Cart->id))
+
+		if (!$objOrder->findBy('id', $this->Input->post('orderid')))
 		{
-			$objOrder->updateOrderStatus($this->new_order_status);
+			$this->log('Order ID "' . $this->Input->post('orderid') . '" not found', __METHOD__, TL_ERROR);
+			return false;
+		}
+		
+		$objOrder->date_paid = time();
+		$objOrder->updateOrderStatus($this->new_order_status);
+		$objOrder->save();
+		return true;
+	}
+
+
+	public function checkoutForm()
+	{
+		$objOrder = new IsotopeOrder();
+
+		if (!$objOrder->findBy('cart_id', $this->Isotope->Cart->id))
+		{
+			$this->redirect($this->addToUrl('step=failed', true));
 		}
 
-		return true;
+		$arrParam = array
+		(
+			'orderid'		=> $objOrder->id,
+			'amount'		=> round(($this->Isotope->Cart->grandTotal * 100)),
+			'currency'		=> $this->Isotope->Config->currency,
+			'accepturl'		=> $this->Environment->base . IsotopeFrontend::addQueryStringToUrl('uid=' . $objOrder->uniqid, $this->addToUrl('step=complete', true)),
+			'declineurl'	=> $this->Environment->base . $this->addToUrl('step=failed', true)
+		);
+
+		$objTemplate = new FrontendTemplate('iso_payment_skeleton');
+		$objTemplate->action = $this->Environment->base . 'system/modules/isotope_payment_skeleton/paymentservicestub.php';
+		$objTemplate->params = $arrParam;
+		$objTemplate->submitLabel = $GLOBALS['TL_LANG']['MSC']['ipayment_submit_label'];
+		$objTemplate->id = $this->id;
+		return $objTemplate->parse();
 	}
 
 }

@@ -1,0 +1,14 @@
+<form id="skeleton<?php echo $this->id; ?>" action="<?php echo $this->action; ?>" method="post">
+<?php foreach( $this->params as $key => $value ): ?>
+<input type="hidden" name="<?php echo $key; ?>" value="<?php echo $value; ?>">
+<?php endforeach; ?>
+<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+<noscript>
+<input type="submit" value="<?php echo $this->submitLabel; ?>">
+</noscript>
+</form>
+<script>
+window.addEvent('domready' , function() {
+  $('skeleton<?php echo $this->id; ?>').submit();
+});
+</script>

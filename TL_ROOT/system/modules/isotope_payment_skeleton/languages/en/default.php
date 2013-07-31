@@ -36,6 +36,12 @@
 
 
 /**
+ * Miscellaneous
+ */
+$GLOBALS['TL_LANG']['MSC']['ipayment_submit_label'] = 'Pay';
+
+
+/**
  * Payment
  */
 $GLOBALS['ISO_LANG']['PAY']['skeleton'] = array('Skeleton', 'Skeleton of payment implementation for Isotope webshop for Contao.');
