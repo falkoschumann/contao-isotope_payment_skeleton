@@ -45,6 +45,6 @@ $GLOBALS['TL_LANG']['MSC']['ipayment_submit_label'] = 'Bezahlen';
  * Payment
  */
 $GLOBALS['ISO_LANG']['PAY']['skeleton'] = array('Skeleton', 'Skeleton-Implementierung einer Zahlungsart für Isotope Webshop für Contao.');
-
+$GLOBALS['ISO_LANG']['PAY']['skeleton_with_hidden_trigger'] = array('Skeleton mit Hidden Trigger', 'Skeleton-Implementierung einer Zahlungsart für Isotope Webshop für Contao, die das Skript postsale.php nutzt.');
 
 ?>

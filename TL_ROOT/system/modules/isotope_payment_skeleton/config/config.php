@@ -38,6 +38,7 @@
 /**
  * Payment modules
  */
-$GLOBALS['ISO_PAY']['skeleton']	= 'PaymentSkeleton';
+$GLOBALS['ISO_PAY']['skeleton']						= 'PaymentSkeleton';
+$GLOBALS['ISO_PAY']['skeleton_with_hidden_trigger']	= 'PaymentSkeletonWithHiddenTrigger';
 
 ?>
