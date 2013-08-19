@@ -101,6 +101,9 @@ class PaymentSkeletonWithHiddenTrigger extends IsotopePayment
 			'accepturl'		=> $this->Environment->base . IsotopeFrontend::addQueryStringToUrl('uid=' . $objOrder->uniqid, $this->addToUrl('step=complete', true)),
 			'declineurl'	=> $this->Environment->base . $this->addToUrl('step=failed', true)
 		);
+		
+		// TODO set params to activate hidden trigger
+		// TODO create new payment service stub handling hidden trigger
 
 		$objTemplate = new FrontendTemplate('iso_payment_skeleton');
 		$objTemplate->action = $this->Environment->base . 'system/modules/isotope_payment_skeleton/paymentservicewithhiddentriggerstub.php';
