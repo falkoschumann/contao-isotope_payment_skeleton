@@ -95,18 +95,17 @@ class PaymentSkeletonWithHiddenTrigger extends IsotopePayment
 
 		$arrParam = array
 		(
-			'orderid'		=> $objOrder->id,
-			'amount'		=> round(($this->Isotope->Cart->grandTotal * 100)),
-			'currency'		=> $this->Isotope->Config->currency,
-			'accepturl'		=> $this->Environment->base . IsotopeFrontend::addQueryStringToUrl('uid=' . $objOrder->uniqid, $this->addToUrl('step=complete', true)),
-			'declineurl'	=> $this->Environment->base . $this->addToUrl('step=failed', true)
+			'orderid'				=> $objOrder->id,
+			'amount'				=> round(($this->Isotope->Cart->grandTotal * 100)),
+			'currency'				=> $this->Isotope->Config->currency,
+			'accepturl'				=> $this->Environment->base . IsotopeFrontend::addQueryStringToUrl('uid=' . $objOrder->uniqid, $this->addToUrl('step=complete', true)),
+			'declineurl'			=> $this->Environment->base . $this->addToUrl('step=failed', true),
+			'use_hidden_trigger'	=> true,	
+			'hidden_trigger'		=> $this->Environment->base . 'system/modules/isotope_payment_skeleton/paymentservicestub.php'
 		);
 		
-		// TODO set params to activate hidden trigger
-		// TODO create new payment service stub handling hidden trigger
-
 		$objTemplate = new FrontendTemplate('iso_payment_skeleton');
-		$objTemplate->action = $this->Environment->base . 'system/modules/isotope_payment_skeleton/paymentservicewithhiddentriggerstub.php';
+		$objTemplate->action = $this->Environment->base . 'system/modules/isotope_payment_skeleton/paymentservicestub.php';
 		$objTemplate->params = $arrParam;
 		$objTemplate->submitLabel = $GLOBALS['TL_LANG']['MSC']['ipayment_submit_label'];
 		$objTemplate->id = $this->id;

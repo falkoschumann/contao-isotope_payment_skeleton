@@ -34,12 +34,40 @@
  * @filesource
  */
 
-?><html>
+if (!empty($_POST['hidden_trigger'])) :
+	$data = array(
+		'cc_name'		=> $_POST['cc_name'],
+		'cc_number'		=> $_POST['cc_number'],
+		'orderid'		=> $_POST['orderid'],
+		'REQUEST_TOKEN'	=> $_POST['REQUEST_TOKEN'],
+	);
+	http_post_fields($_POST['hidden_trigger'], $data);
+?>	
+<html>
 <head>
 <title>Payment Service Stub</title>
 </head>
 <body>
 <form action="<?php echo $_POST['accepturl']; ?>" method="post">
+  <input type="submit" value="Back to shop">
+  <input type="hidden" name="cc_name" value="<?php echo $_POST['cc_name']; ?>">
+  <input type="hidden" name="cc_number" value="<?php echo $_POST['cc_number']; ?>">
+  <input type="hidden" name="orderid" value="<?php echo $_POST['orderid']; ?>">
+  <input type="hidden" name="REQUEST_TOKEN" value="<?php echo $_POST['REQUEST_TOKEN']; ?>">
+<?php if ($_POST['use_hidden_trigger']) :?>
+  <input type="hidden" name="hidden_trigger" value="<?php echo $_POST['hidden_trigger']; ?>">
+  <input type="hidden" name="accepturl" value="<?php echo $_POST['accepturl']; ?>">
+<?php endif;?>
+</form>
+</body>
+</html>
+<?php else : ?>
+<html>
+<head>
+<title>Payment Service Stub</title>
+</head>
+<body>
+<form action="<?php echo $_POST['use_hidden_trigger'] ? $_SERVER['PHP_SELF'] : $_POST['accepturl']; ?>" method="post">
   <table>
     <tr>
       <td><label for="cc_name">Credit Card Owner</label></td>
@@ -55,6 +83,11 @@
   </table>
   <input type="hidden" name="orderid" value="<?php echo $_POST['orderid']; ?>">
   <input type="hidden" name="REQUEST_TOKEN" value="<?php echo $_POST['REQUEST_TOKEN']; ?>">
+<?php if ($_POST['use_hidden_trigger']) :?>
+  <input type="hidden" name="hidden_trigger" value="<?php echo $_POST['hidden_trigger']; ?>">
+  <input type="hidden" name="accepturl" value="<?php echo $_POST['accepturl']; ?>">
+<?php endif;?>
 </form>
 </body>
 </html>
+<?php endif; ?>
